@@ -1,22 +1,14 @@
-var fs = require('fs');
+// Для создания сервера подключаем модуль http
+var http = require('http');
 
-// для удаления файлов используются методы unlink(), unlinkSinc()
-// fs.unlink('some.txt', function() {});
-
-// метод mkdirSync() создаёт новую директорию (папку)
-// fs.mkdirSync('new-one');
-
-// метод rmdirSync() удаляет директорию (папку)
-// fs.rmdirSync('new-one');
-
-// Создадим папку и файл.
-// fs.mkdir('new-one', function() {
-// 	fs.writeFile('./new-one/some.txt', 'Создали файл.', function() {
-// 		console.log("Создали папку и файл.");
-// 	});
-// });
-
-// Удаляем файл и папку.
-fs.unlink('./new-one/some.txt', function() {
-	fs.rmdir('new-one', function() {});
+// Функция createServer создаёт сервер
+var server = http.createServer(function(req, res) {
+	console.log("URL страницы: " + req.url); // Отслеживаем url запросы
+	res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+	res.end('Привет');
 });
+
+server.listen(3000, '127.0.0.1'); // Указываем порт и IP адрес
+console.log("Проверка работы порта 3000");
+
+// Для завершения работы сервера нажать ctrl + C
