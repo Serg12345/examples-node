@@ -1,20 +1,4 @@
-// функция
-function test() {   
-	console.log("Привет");
-}
-test();
+// подключаем файл array.js
+var counter = require('./array');
 
-// именнованная функция
-var printSomething = function() {   
-	console.log("Привет_2");
-} 
-printSomething();
-
-// одна функция в другой
-var printText = function() {   
-	console.log("Текст");
-} 
-function call(func) {   
-	func();
-}
-call(printText);
+console.log(counter([1, 7, 99, 8, 45, 8]));
