@@ -1,12 +1,20 @@
-console.log("Hello");
-console.log(__filename);
-var x = 0;
-if (x==0) {
-	console.log("Work");
-}
-for (var i = 0; i < 5; i++) 
-	console.log(i);
-setTimeout(function()
-{
+// функция
+function test() {   
 	console.log("Привет");
-}, 5000);
+}
+test();
+
+// именнованная функция
+var printSomething = function() {   
+	console.log("Привет_2");
+} 
+printSomething();
+
+// одна функция в другой
+var printText = function() {   
+	console.log("Текст");
+} 
+function call(func) {   
+	func();
+}
+call(printText);
