@@ -1,34 +1,9 @@
-// подключаем встроенный модуль events, позволяет отслеживать события
-var events = require('events');
-// подключим модуль, который позволяет наследовать события от конкретного объекта
-var util = require('util');
+var fs = require('fs');
 
-// создадим переменную (или объект), которая отвечает за обработку событий
-var myEmit = new events.EventEmitter();
+// для чтение файла используем метод .readFileSync(), пока файл не будет прочитан, дальнейший код не будет работать
+var file_readed = fs.readFileSync('text.txt', 'utf8');
+console.log(file_readed);
 
-myEmit.on('some_event', function(text) {
-	console.log(text);
-});
-
-myEmit.emit('some_event', 'Обработчик событий сработал.');
-
-// Создадим конструктор объектов.
-var Cars = function(model) {
-	this.model = model;
-};
-
-util.inherits(Cars, events.EventEmitter);
-
-var bmw = new Cars('BMW');
-var audi = new Cars('audi');
-var volvo = new Cars('volvo');
-
-var cars = [bmw, audi, volvo];
-cars.forEach(function(car) {
-	car.on('speed', function(text) {
-		console.log(car.model + " speed is - " +text);
-	});
-});
-
-bmw.emit('speed', '254.5 km');
-bmw.emit('speed', '180 km');
+// для записи данных в существующий файл или в новый файл используем метод .writeFileSync()
+var message = "Привет.\n " + file_readed;
+fs.writeFileSync('some_new_file.txt', message);
