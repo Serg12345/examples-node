@@ -13,9 +13,13 @@ var http = require('http');
 // Функция createServer создаёт сервер
 var server = http.createServer(function(req, res) {
 	console.log("URL страницы: " + req.url); // Отслеживаем url запросы
-	res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-	var myReadShort = fs.createReadStream(__dirname + '/index.html', 'utf8');
-	myReadShort.pipe(res);
+	res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+	var obj = {
+		model: 'Audi',
+		speed: '235',
+		wheels: 4
+	}; // создаём объект 
+	res.end(JSON.stringify(obj)); // вывод JSON объект
 });
 
 server.listen(3000, '127.0.0.1'); // Указываем порт и IP адрес
