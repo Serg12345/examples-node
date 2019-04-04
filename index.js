@@ -1,29 +1,23 @@
-// методы createReadStream и createWriteStream позволяют передавать данные постепенно
-var fs = require('fs');
+// Подключим библиотеку express
+var express = require('express');
 
-// var myReadShort = fs.createReadStream(__dirname + '/article.txt', 'utf8');
-// var myWriteShort = fs.createWriteStream(__dirname + '/news.txt');
+var app = express(); // через переменную app подключаемся к функциям express
 
-// функция pipe() записывает данные по частями (потоками)
-// myReadShort.pipe(myWriteShort);
-
-// Для создания сервера подключаем модуль http
-var http = require('http');
-
-// Функция createServer создаёт сервер
-var server = http.createServer(function(req, res) {
-	console.log("URL страницы: " + req.url); // Отслеживаем url запросы
-	if (req.url === '/index' || req.url === '/') {
-		res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-		fs.createReadStream(__dirname + '/index.html').pipe(res);
-	} else if (req.url === '/about') {
-		res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-		fs.createReadStream(__dirname + '/about.html').pipe(res);
-	} else {
-		res.writeHead(404, {'Content-Type': 'text/html; charset=utf-8'});
-		fs.createReadStream(__dirname + '/404.html').pipe(res);
-	}
+// отслеживаем ссылки url
+app.get('/', function(req, res) {
+	res.send('Hello');
 });
 
-server.listen(3000, '127.0.0.1'); // Указываем порт и IP адрес
-console.log("Проверка работы порта 3000");
+app.get('/news', function(req, res) {
+	res.send('news');
+});
+
+app.get('/news/:id', function(req, res) {
+	res.send('id равно ' + req.params.id); // получение id
+});
+
+app.get('/news/:name/:id', function(req, res) {
+	res.send('name равно ' + req.params.name + ' id равно ' + req.params.id); // получение name, id
+});
+
+app.listen(3000); // отслеживаем порт 3000
